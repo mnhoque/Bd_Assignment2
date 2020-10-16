@@ -1,60 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace Bd_Assignment2
 {
-    class Program
+    class DB
     {
-        static void Main(string[] args)
-        {
+        public static string conStr = "server=(local);database=NazmulDB;Trusted_Connection=Yes";
 
-            DB.ExecuteCommand()
-            
-
-            //Console.WriteLine("Hello World!");
-        }
-
-        class DataOperation<T> where T : Entity
-        {
-            public void Insert(T item)
-            {
-                
-
-            }
-
-            public void Update(T item)
-            {
-
-            }
-
-            public void Delete(T item)
-            {
-
-            }
-
-            public void GetById(int id)
-            {
-
-            }
-
-            public void GetAll()
-            {
-
-            }
-
-        }
-
-        public static string conStr = "server=(local);database=NazmulDB;Trusted_Connection=true";
-
+        //insert, update, delete
         public static int ExecuteCommand(string cmdStr)
         {
             SqlConnection con = new SqlConnection(conStr);
 
+
             SqlCommand cmd = new SqlCommand(cmdStr, con);
-
             int numberOfRowsEffected = -1;//error
-
             try
             {
                 con.Open();
@@ -101,5 +64,4 @@ namespace Bd_Assignment2
         }
 
     }
-}
 }
