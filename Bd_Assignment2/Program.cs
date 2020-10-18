@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Linq;
+using System.Reflection;
+using System.Linq.Expressions;
 
 namespace Bd_Assignment2
 {
@@ -22,7 +25,7 @@ namespace Bd_Assignment2
                 Room room = new Room();
 
                 room.Id = (int)dr["Id"];
-                room.Rent = (double)dr["Rent"];
+                room.Rent = Convert.ToDouble(dr["Rent"]);
 
                 Console.WriteLine($"The room id is {room.Id} and the rent is {room.Rent}");
             }
@@ -33,13 +36,16 @@ namespace Bd_Assignment2
             //Console.WriteLine("Hello World!");
         }
 
-        class DataOperation<T> where T : Entity
+        class DataOperation<T> where T : class
         {
             public void Insert(T item)
             {
-                
+
 
             }
+
+
+
 
             public void Update(T item)
             {
