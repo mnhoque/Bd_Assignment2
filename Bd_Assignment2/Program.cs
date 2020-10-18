@@ -9,8 +9,26 @@ namespace Bd_Assignment2
         static void Main(string[] args)
         {
 
-            DB.ExecuteCommand()
+            DataTable dt = DB.Select("Select * From Room");
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                //House house = new House();
+                //house.Id = (int)dr["Id"];
+                //house.Rooms.Capacity = (int)dr["Rooms"];
+
+                //Console.WriteLine($"The house id are {house.Id} and it contains {house.Rooms.Capacity}");
+
+                Room room = new Room();
+
+                room.Id = (int)dr["Id"];
+                room.Rent = (double)dr["Rent"];
+
+                Console.WriteLine($"The room id is {room.Id} and the rent is {room.Rent}");
+            }
             
+
+
 
             //Console.WriteLine("Hello World!");
         }
@@ -45,61 +63,8 @@ namespace Bd_Assignment2
 
         }
 
-        public static string conStr = "server=(local);database=NazmulDB;Trusted_Connection=true";
-
-        public static int ExecuteCommand(string cmdStr)
-        {
-            SqlConnection con = new SqlConnection(conStr);
-
-            SqlCommand cmd = new SqlCommand(cmdStr, con);
-
-            int numberOfRowsEffected = -1;//error
-
-            try
-            {
-                con.Open();
-                numberOfRowsEffected = cmd.ExecuteNonQuery();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"There is a problem, executing the command:  {cmdStr}\nTechnical Error Message: {ex.Message}");
-
-            }
-            finally
-            {
-                if (con.State == System.Data.ConnectionState.Open)
-                    con.Close();
-            }
-
-            return numberOfRowsEffected;
-
-
-        }
-
-
-        public static DataTable Select(string cmdStr)
-        {
-
-            SqlDataAdapter da = new SqlDataAdapter(cmdStr, conStr);
-
-            DataTable dt = new DataTable();//in-memory repository
-
-            try
-            {
-                da.Fill(dt);//<--------------connection oriented
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"There is a problem, executing the select command:  {cmdStr}\nTechnical Error Message: {ex.Message}");
-            }
-
-            return null;//signifies an error
-
-
-        }
+        
 
     }
 }
-}
+
